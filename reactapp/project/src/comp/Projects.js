@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import axios from "axios"
-// import DataCard from "../comps/dataCard"
+import Project from "./Project"
 
 
 
@@ -8,14 +8,14 @@ import axios from "axios"
 function Projects() {
 
 
-    const [projects, setProjects] = useState([]);
+    const [projectList, setProjectList] = useState([]);
 
     useEffect(() => {
         axios
-        .get(`localhost:4000/api/projects/`)
+        .get(`https://cors-anywhere.herokuapp.com/https://scdavwebapi.herokuapp.com/api/projects`)
         .then(res => {
             console.log(res, "apistuff")
-            setProjects(res.data)
+            setProjectList(res.data)
            
             
         })
@@ -29,6 +29,9 @@ function Projects() {
 
     return (
         <>
+        {projectList.map(item => (
+                <Project key={item.id} projectData ={item}/>
+            ))}
         </>
     )
 }
