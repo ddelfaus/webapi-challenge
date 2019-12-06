@@ -63,7 +63,7 @@ router.get('/', (req, res) => {
 // post request
 
 
-router.post('/', (req, res) => {
+router.post('/', validateProject, (req, res) => {
  
     const project = req.body
   
@@ -83,7 +83,7 @@ router.post('/', (req, res) => {
 
   // put request
 
-  router.put('/:id',  (req, res) => {
+  router.put('/:id', validateProject,validateProjectId, (req, res) => {
 
     const changes = req.body
     const id = req.params.id
@@ -107,7 +107,7 @@ router.post('/', (req, res) => {
 
 // delete request
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id',validateProjectId, (req, res) => {
 
     const id = req.params.id
   
@@ -125,6 +125,32 @@ router.delete('/:id', (req, res) => {
       })
   });
   
+// custom middleware
+
+function validateProject(req, res, next) {
+    if(!req.body) {
+        res.status(400).json({ message: "missing the post data"});
+    }
+    if (!req.body.name) {
+        res.status(400).json({ message: "missing name field" });
+    } 
+    if(!req.body.description){
+        res.status(400).json({ message: "missing description field " });
+    } 
+
+    else {
+        next();
+    }
+}
+function validateProjectId(req, res, next) {
+    const id = Number(req.params.id || 0);
+    if(id){
+        req.project = id
+        next();
+    } else {
+    res.status(400).json({ message: "Invalid ID" })
+    }
+}
 
 
 

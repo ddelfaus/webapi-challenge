@@ -48,7 +48,7 @@ router.get('/', (req, res) => {
 // post request
 
 
-  router.post('/', (req, res) => {
+  router.post('/', validateAction, (req, res) => {
  
     const action = req.body
   
@@ -69,7 +69,7 @@ router.get('/', (req, res) => {
 
   // put request
 
-  router.put('/:id',  (req, res) => {
+  router.put('/:id', validateAction, validateActionId, (req, res) => {
 
     const changes = req.body
     const id = req.params.id
@@ -92,7 +92,7 @@ router.get('/', (req, res) => {
   });
 
 
-  router.delete('/:id', (req, res) => {
+  router.delete('/:id',validateActionId, (req, res) => {
 
     const id = req.params.id
   
@@ -110,5 +110,38 @@ router.get('/', (req, res) => {
       })
   });
   
+
+
+  //custom middleware
+
+
+function validateAction(req, res, next) {
+    if(!req.body) {
+        res.status(400).json({ message: "missing the post data"});
+    }
+    if (!req.body.project_id) {
+        res.status(400).json({ message: "missing the  project_id field" });
+    } 
+    if(!req.body.description){
+        res.status(400).json({ message: "missing the  description field" });
+    } 
+    if(!req.body.notes){
+        res.status(400).json({ message: "missing the  notes field" });
+    } 
+    else {
+        next();
+    }
+}
+function validateActionId(req, res, next) {
+    const id = Number(req.params.id || 0);
+    if(id){
+        req.action = id
+        next();
+    } else {
+    res.status(400).json({ message: "Invalid action ID" })
+    }
+}
+
+
 
 module.exports = router;
