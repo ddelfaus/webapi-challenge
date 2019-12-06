@@ -28,6 +28,29 @@ router.get('/', (req, res) => {
     });
   });
 
+
+
+
+  router.get("/:id/actions2", (req, res) => {
+    const id = req.params.id
+    projectsDb
+    .getProjectActions(id)
+    .then(projects => {
+      res.status(200).json(projects);
+    })
+    .catch(error => {
+    
+      console.log(error);
+      res.status(500).json({
+        message: "Error retrieving the users"
+      });
+    });
+  });
+
+
+
+
+
   router.get('/:id', (req, res) => {
     const id = req.params.id
     projectsDb
