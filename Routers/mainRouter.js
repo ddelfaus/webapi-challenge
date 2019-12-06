@@ -108,7 +108,7 @@ router.post('/', (req, res) => {
 // delete request
 
 router.delete('/:id', (req, res) => {
-    // do your magic!
+
     const id = req.params.id
   
     projectsDb.remove(id)
