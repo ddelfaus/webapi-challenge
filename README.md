@@ -40,13 +40,27 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+Express is framework like react that allows user to build apis in a more streamlined way. Two main features are Middleware and Routing. Middleware can change the request or response before sending it back. Routing allows better organization of the api by separating endpoints with different routes
+
 - [ ] Describe Middleware?
+
+Middleware acts like the middle man by changing the the request or response based on the data being sent to the api. There are three main types Built in, third-party and custom
+
 
 - [ ] Describe a Resource?
 
+A Resource is an object that has a type, data, and methods that operate with it. Resource is basically what the api sends back to the user
+
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+ 
+Status codes for example 200 , which means data was successfully retrieve 
+
+
 - [ ] How can we partition our application into sub-applications?
+
+You can use Routes to access different dbs and use sub folders for other applications
 
 ## Minimum Viable Product
 
